@@ -10,3 +10,10 @@ class MovieListSerializer(serializers.ModelSerializer):
 		model = Movie
 		fields = ('title', 'tagline', 'category')
 
+
+class MovieDetailsSerializer(serializers.ModelSerializer):
+	'''Movie details'''
+
+	class Meta:
+		model = Movie
+		exclude = ('draft',)
