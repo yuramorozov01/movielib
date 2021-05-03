@@ -19,7 +19,7 @@ class Category(models.Model):
 
 
 class Actor(models.Model):
-    '''Actors and producers'''
+    '''Actors and directors'''
     name = models.CharField('Name', max_length=100)
     age = models.PositiveSmallIntegerField('Age', default=0)
     description = models.TextField('Description')
@@ -32,8 +32,8 @@ class Actor(models.Model):
         return reverse('actor_detail', kwargs={'slug': self.name})
 
     class Meta:
-        verbose_name = 'Actors and producers'
-        verbose_name_plural = 'Actors and producers'
+        verbose_name = 'Actors and directors'
+        verbose_name_plural = 'Actors and directors'
 
 
 class Genre(models.Model):
@@ -58,7 +58,7 @@ class Movie(models.Model):
     poster = models.ImageField('Poster', upload_to='movies/')
     year = models.PositiveSmallIntegerField('Release year', default=2020)
     country = models.CharField('Country', max_length=30)
-    directors = models.ManyToManyField(Actor, verbose_name='producers', related_name='film_director')
+    directors = models.ManyToManyField(Actor, verbose_name='directors', related_name='film_director')
     actors = models.ManyToManyField(Actor, verbose_name='actors', related_name='film_actor')
     genres = models.ManyToManyField(Genre, verbose_name='genres')
     world_premiere = models.DateField('World premier', default=date.today)
