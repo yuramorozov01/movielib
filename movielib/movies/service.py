@@ -1,4 +1,4 @@
-def get_client_ip(self, request):
+def get_client_ip(request):
 	'''Receiving client ip'''
 	x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
 	if x_forwarded_for:

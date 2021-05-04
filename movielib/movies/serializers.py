@@ -6,9 +6,12 @@ from .models import Movie, Review, Rating
 class MovieListSerializer(serializers.ModelSerializer):
 	'''Movie list'''
 
+	rating_user = serializers.BooleanField()
+	middle_star = serializers.IntegerField()
+	
 	class Meta:
 		model = Movie
-		fields = ('title', 'tagline', 'category')
+		fields = ('id', 'title', 'tagline', 'category', 'rating_user', 'middle_star')
 
 
 class RecursiveReviewChildrenSerializer(serializers.Serializer):
