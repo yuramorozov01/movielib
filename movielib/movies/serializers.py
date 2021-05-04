@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Movie, Review, Rating
+from .models import Movie, Review, Rating, Actor
 
 
 class MovieListSerializer(serializers.ModelSerializer):
@@ -49,12 +49,28 @@ class ReviewSerializer(serializers.ModelSerializer):
 		fields = ('name', 'text', 'children')
 
 
+class ActorListSerializer(serializers.ModelSerializer):
+	'''Output actor and director list'''
+
+	class Meta:
+		model = Actor
+		fields = ('id', 'name', 'image')
+
+
+class ActorDetailSerializer(serializers.ModelSerializer):
+	'''Output actor and director details'''
+
+	class Meta:
+		model = Actor
+		fields = '__all__'
+
+		
 class MovieDetailsSerializer(serializers.ModelSerializer):
 	'''Movie details'''
 
 	category = serializers.SlugRelatedField(slug_field='name', read_only=True)
-	directors = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
-	actors = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
+	directors = ActorListSerializer(read_only=True, many=True)
+	actors = ActorListSerializer(read_only=True, many=True)
 	genres = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
 	reviews = ReviewSerializer(many=True)
 	
@@ -74,7 +90,5 @@ class CreateRatingSerializer(serializers.ModelSerializer):
 	def create(self, validated_data):
 		rating = Rating.objects.update_or_create(ip=validated_data.get('ip', None), movie=validated_data.get('movie', None), defaults={'star': validated_data.get('star')})
 		return rating
-
-
 
 
