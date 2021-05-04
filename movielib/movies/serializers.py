@@ -11,6 +11,14 @@ class MovieListSerializer(serializers.ModelSerializer):
 		fields = ('title', 'tagline', 'category')
 
 
+class ReviewCreateSerializer(serializers.ModelSerializer):
+	'''Create review'''
+
+	class Meta:
+		model = Review
+		fields = '__all__'
+
+
 class MovieDetailsSerializer(serializers.ModelSerializer):
 	'''Movie details'''
 
@@ -18,15 +26,8 @@ class MovieDetailsSerializer(serializers.ModelSerializer):
 	directors = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
 	actors = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
 	genres = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
-
+	reviews = ReviewCreateSerializer(many=True)
+	
 	class Meta:
 		model = Movie
 		exclude = ('draft',)
-
-
-class ReviewCreateSerializer(serializers.ModelSerializer):
-	'''Create review'''
-
-	class Meta:
-		model = Review
-		fields = '__all__'
