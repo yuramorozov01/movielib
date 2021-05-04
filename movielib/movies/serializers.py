@@ -19,6 +19,14 @@ class ReviewCreateSerializer(serializers.ModelSerializer):
 		fields = '__all__'
 
 
+class ReviewSerializer(serializers.ModelSerializer):
+	'''Output review'''
+
+	class Meta:
+		model = Review
+		fields = ('name', 'text', 'parent')
+
+
 class MovieDetailsSerializer(serializers.ModelSerializer):
 	'''Movie details'''
 
@@ -26,7 +34,7 @@ class MovieDetailsSerializer(serializers.ModelSerializer):
 	directors = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
 	actors = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
 	genres = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
-	reviews = ReviewCreateSerializer(many=True)
+	reviews = ReviewSerializer(many=True)
 	
 	class Meta:
 		model = Movie
