@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
 
+    'django_filters',
+
     'movies',
 ]
 
@@ -202,6 +204,13 @@ CKEDITOR_CONFIGS = {
             'youtube'
         ]),
     }
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_FIELD_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
 }
 
 # Default primary key field type
