@@ -57,7 +57,7 @@ class ActorListSerializer(serializers.ModelSerializer):
 		fields = ('id', 'name', 'image')
 
 
-class ActorDetailSerializer(serializers.ModelSerializer):
+class ActorDetailsSerializer(serializers.ModelSerializer):
 	'''Output actor and director details'''
 
 	class Meta:
