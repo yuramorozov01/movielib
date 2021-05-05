@@ -14,6 +14,9 @@ from pathlib import Path
 import os
 from datetime import timedelta
 
+from .config.config import KEYS
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-dk+&j#lnh077zqr9xy&92$$gq%7rc0s%psr2+3f27=sfs_^bg$'
+SECRET_KEY = KEYS['MAIN']['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,6 +45,9 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_social_oauth2',
+    'oauth2_provider',
+    'social_django',
 
     'ckeditor',
     'ckeditor_uploader',
@@ -91,12 +97,12 @@ WSGI_APPLICATION = 'movielib.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'movielib',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': KEYS['DATABASE']['ENGINE'],
+        'NAME': KEYS['DATABASE']['NAME'],
+        'USER': KEYS['DATABASE']['USER'],
+        'PASSWORD': KEYS['DATABASE']['PASSWORD'],
+        'HOST': KEYS['DATABASE']['HOST'],
+        'PORT': KEYS['DATABASE']['PORT'],
     }
 }
 
@@ -215,10 +221,22 @@ CKEDITOR_CONFIGS = {
 }
 
 
+SOCIAL_AUTH_VK_OAUTH2_KEY = KEYS['SOCIAL_OAUTH2']['VK']['SOCIAL_AUTH_VK_OAUTH2_KEY']
+SOCIAL_AUTH_VK_OAUTH2_SECRET = KEYS['SOCIAL_OAUTH2']['VK']['SOCIAL_AUTH_VK_OAUTH2_SECRET']
+
+AUTHENTICATION_BACKENDS = {
+    'social_core.backends.vk.VKOAuth2',
+    'rest_framework_social_oauth2.backends.DjangoOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+}
+
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
 
     'DEFAULT_FIELD_BACKENDS': (
@@ -228,11 +246,11 @@ REST_FRAMEWORK = {
 
 
 #SMTP
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'EMAIL_HOST'
-EMAIL_HOST_USER = 'EMAIL_HOST_USER'
-EMAIL_HOST_PASSWORD = 'EMAIL_HOST_PASSWORD'
-EMAIL_PORT = 587
+EMAIL_USE_TLS = KEYS['SMTP']['EMAIL_USE_TLS']
+EMAIL_HOST = KEYS['SMTP']['EMAIL_HOST']
+EMAIL_HOST_USER = KEYS['SMTP']['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = KEYS['SMTP']['EMAIL_HOST_PASSWORD']
+EMAIL_PORT = KEYS['SMTP']['EMAIL_PORT']
 
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
@@ -268,6 +286,7 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
