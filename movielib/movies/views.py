@@ -6,13 +6,14 @@ from rest_framework import generics, permissions, viewsets
 
 from .models import Movie, Actor, Review
 from .serializers import MovieListSerializer, MovieDetailsSerializer, ReviewCreateSerializer, CreateRatingSerializer, ActorListSerializer, ActorDetailsSerializer
-from .service import get_client_ip, MovieFilter
+from .service import get_client_ip, MovieFilter, PaginationMovies
 
 
 class MovieViewSet(viewsets.ReadOnlyModelViewSet):
 	'''Output movies'''
 	filter_backends = (DjangoFilterBackend,)
 	filterset_class = MovieFilter
+	pagination_class = PaginationMovies
 
 	def get_queryset(self):
 		movies = Movie.objects.filter(draft=False).annotate(
