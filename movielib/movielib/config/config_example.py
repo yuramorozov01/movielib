@@ -3,10 +3,12 @@ KEYS = {
 		'SECRET_KEY': '####',
 	},
 	'DATABASE': {
+		'ENGINE': '####',
 		'NAME': '####',
 		'USER': '####',
-        'PASSWORD': '####',
-        'HOST': '####',
+		'PASSWORD': '####',
+		'HOST': '####',
+		'PORT': '####',
 	},
 	'SOCIAL_OAUTH2': {
 		'VK': {
