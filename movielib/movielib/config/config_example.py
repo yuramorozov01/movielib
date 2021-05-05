@@ -23,4 +23,9 @@ KEYS = {
 		'EMAIL_HOST_PASSWORD': '####',
 		'EMAIL_PORT': 000,
 	},
+	'CORS': {
+		'CORS_ORIGIN_WHITELIST': [
+			'####',
+		],
+	},
 }
