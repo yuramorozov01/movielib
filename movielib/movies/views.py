@@ -5,7 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics, permissions
 
 from .models import Movie, Actor
-from .serializers import MovieListSerializer, MovieDetailsSerializer, ReviewCreateSerializer, CreateRatingSerializer, ActorListSerializer, ActorDetailSerializer
+from .serializers import MovieListSerializer, MovieDetailsSerializer, ReviewCreateSerializer, CreateRatingSerializer, ActorListSerializer, ActorDetailsSerializer
 from .service import get_client_ip, MovieFilter
 
 
@@ -59,5 +59,5 @@ class ActorDetailsView(generics.RetrieveAPIView):
 	'''Output actor details'''
 
 	queryset = Actor.objects.all()
-	serializer_class = ActorDetailSerializer
+	serializer_class = ActorDetailsSerializer
 
