@@ -11,7 +11,7 @@ class MovieListSerializer(serializers.ModelSerializer):
 	
 	class Meta:
 		model = Movie
-		fields = ('id', 'title', 'tagline', 'category', 'rating_user', 'middle_star')
+		fields = ('id', 'title', 'tagline', 'category', 'rating_user', 'middle_star', 'poster')
 
 
 class RecursiveReviewChildrenSerializer(serializers.Serializer):
@@ -46,7 +46,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 	class Meta:
 		list_serializer_class = FilterReviewListSerializer
 		model = Review
-		fields = ('name', 'text', 'children')
+		fields = ('id', 'name', 'text', 'children')
 
 
 class ActorListSerializer(serializers.ModelSerializer):
