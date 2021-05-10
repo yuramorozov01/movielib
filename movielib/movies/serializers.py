@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Movie, Review, Rating, Actor
+from .models import Movie, Review, Rating, Actor, Genre
 
 
 class MovieListSerializer(serializers.ModelSerializer):
@@ -91,4 +91,11 @@ class CreateRatingSerializer(serializers.ModelSerializer):
 		rating, _ = Rating.objects.update_or_create(ip=validated_data.get('ip', None), movie=validated_data.get('movie', None), defaults={'star': validated_data.get('star')})
 		return rating
 
+
+class GenreSerializer(serializers.ModelSerializer):
+	'''Output available genres'''
+
+	class Meta:
+		model = Genre
+		fields = '__all__'
 
