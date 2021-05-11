@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Movie, Review, Rating, Actor, Genre
+from .models import Movie, Review, Rating, Actor, Genre, RatingStar
 
 
 class MovieListSerializer(serializers.ModelSerializer):
@@ -98,4 +98,12 @@ class GenreSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Genre
 		fields = '__all__'
+
+
+class RatingStarSerializer(serializers.ModelSerializer):
+	'''Output available rating star values'''
+
+	class Meta:
+		model = RatingStar
+		fields = ('value',)
 
