@@ -73,10 +73,13 @@ class MovieDetailsSerializer(serializers.ModelSerializer):
 	actors = ActorListSerializer(read_only=True, many=True)
 	genres = serializers.SlugRelatedField(slug_field='name', read_only=True, many=True)
 	reviews = ReviewSerializer(many=True)
+
+	rating_user = serializers.BooleanField()
+	middle_star = serializers.IntegerField()
 	
 	class Meta:
 		model = Movie
-		exclude = ('draft',)
+		fields = '__all__'
 
 
 class CreateRatingSerializer(serializers.ModelSerializer):
