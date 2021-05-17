@@ -23,7 +23,7 @@ class MovieViewSet(viewsets.ReadOnlyModelViewSet):
 		).annotate(
 			middle_star=models.Sum(models.F('ratings__star')) / models.Count(models.F('ratings'))
 		)
-		return movies
+		return movies.order_by('id')
 
 	def get_serializer_class(self):
 		if self.action == 'list':
